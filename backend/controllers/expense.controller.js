@@ -60,7 +60,7 @@ export const getAllExpenses = async (req,res) => {
     }
 }
 
-export const markAsDone = async(req,res) => {
+export const markAsDoneOrUndone = async(req,res) => {
     try{
         const expenseId = req.params.id;
         const done = req.body;

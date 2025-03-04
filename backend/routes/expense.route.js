@@ -1,6 +1,6 @@
 import express from 'express';
-import { addExpense, markAsDone, removeExpense } from '../controllers/expense.controller.js';
-import isAuthenticated from '../middleware/isAuthenticated';
+import { addExpense,getAllExpenses, markAsDoneOrUndone, removeExpense, updateExpense } from '../controllers/expense.controller.js';
+import isAuthenticated from '../middleware/isAuthenticated.js';
 
 const router = express.Router();
 
