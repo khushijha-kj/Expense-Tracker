@@ -67,14 +67,51 @@ export const markAsDone = async(req,res) => {
         const expense = await Expense.findByIdAndUpdate(expenseId,done,{new:true});
         if(!expense){
             return res.status(404).json({
-                message
+                message : "Expense not found",
+                success:false
             })
-        }
+        };
+        return res.status(200).json({
+                message:`Expense marked as ${expense.done ? 'done' : 'undone'}.`,
+                success:true
+            }
+        )
 
 
     }
     catch(error){
         console.log(error);
         return res.status(500).json({ message: "Server error", success: false });
+    }
+}
+
+export const removeExpense = async(req,res) => {
+    try{
+        const expenseId = req.params.id;
+        await Expense.findByIdAndDelete(expenseId);
+        return res.status(200).json({message:"Expense removed successfully",success:true});
+
+    }
+    catch(error){
+        console.log(error);
+    }    
+}
+
+export const updateExpense = async(req,res) => {
+    try{
+        const {description, amount, category} = req.body;
+        const expenseId = req.params.id;
+        const updateData = {
+            description,
+            amount,
+            category
+        };
+        const expense = await Expense.findByIdAndUpdate(expenseId,updateData,{new:true});
+
+        return res.status(200).json({message:"Expense updated successfully",success:true,expense});
+    }
+
+    catch(error){
+        console.log(error);
     }
 }
